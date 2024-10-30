@@ -1,0 +1,11 @@
+services:
+    server:
+        build:
+            context: ./server
+        develop:
+            watch:
+                - action: sync
+                  path: ./server
+                  target: /app
+        ports:
+            - "3000:3000"
