@@ -1,11 +1,23 @@
 services:
     server:
-        build:
-            context: ./server
+        build: ./server
         develop:
             watch:
                 - action: sync
                   path: ./server
                   target: /app
+                - action: rebuild
+                  path: ./server/package.json
         ports:
             - "3000:3000"
+    client:
+      build: ./client
+      develop:
+        watch:
+          - action: sync
+            path: ./client
+            target: /app
+          - action: rebuild
+            path: ./client/package.json
+      ports:
+        - "5173:5173"
