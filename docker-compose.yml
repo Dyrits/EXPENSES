@@ -1,6 +1,8 @@
 services:
     server:
         build: ./server
+        volumes:
+          - ./client/dist:/app/client/dist
         develop:
             watch:
                 - action: sync

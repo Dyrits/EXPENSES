@@ -7,10 +7,6 @@ import expenses from "../mocks/expenses";
 
 const router = new Hono();
 
-router.get("/", (context) => {
-    return context.json({ expenses });
-});
-
 const ExpenseSchema = z.object({
     id: z.string(),
     title: z.string().min(2),
@@ -20,6 +16,26 @@ const ExpenseSchema = z.object({
 type Expense = z.infer<typeof ExpenseSchema>
 
 const ExpensePostSchema = ExpenseSchema.omit({ id: true });
+
+router.get("/", (context) => {
+    return context.json({ expenses });
+});
+
+router.get("/total", (context) => {
+    console.log("Requesting total");
+    const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+    return context.json({ total });
+});
+
+router.get("/:id", (context) => {
+    const id = context.req.param("id");
+    const expense: Expense = expenses.find((expense) => expense.id === id);
+    if (!expense) {
+        return context.notFound();
+    }
+    return context.json(expense);
+});
+
 
 router.post("/", zValidator("json", ExpensePostSchema),  async (context) => {
     const data = context.req.valid("json");
@@ -37,15 +53,6 @@ router.put("/:id", zValidator("json", ExpenseSchema), (context) => {
     }
     expenses[index] = { ...data, id };
     return context.json(expenses[index]);
-});
-
-router.get("/:id", (context) => {
-    const id = context.req.param("id");
-    const expense = expenses.find((expense) => expense.id === id);
-    if (!expense) {
-        return context.notFound();
-    }
-    return context.json(expense);
 });
 
 router.delete("/:id", (context) => {
