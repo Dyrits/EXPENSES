@@ -1,19 +1,24 @@
-const api = {
-  expenses: {
-    get: {
-      async total() {
-        const response = await fetch("/api/expenses/total");
-        if (!response.ok) {
-          throw new Error("Failed to fetch total");
-        }
-        return response.json();
-      }
-    }
-  }
-}
+import type { API } from "@server/app";
+import { hc } from "hono/client";
 
-export const expenses =  {
-  get: {
-    total: api.expenses.get.total()
-  }
-}
+const client = hc<API>("/");
+
+const api = {
+	expenses: {
+		get: {
+			async total() {
+				const response = await client.api.expenses.total.$get();
+				if (!response.ok) {
+					throw new Error("Failed to fetch total of expenses.");
+				}
+				return response.json();
+			},
+		},
+	},
+};
+
+export const expenses = {
+	get: {
+		total: api.expenses.get.total(),
+	},
+};
