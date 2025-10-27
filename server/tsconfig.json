@@ -2,6 +2,9 @@
 	"compilerOptions": {
 		"allowImportingTsExtensions": true,
 		"allowJs": true,
+		"composite": true,
+		"declaration": true,
+		"emitDeclarationOnly": true,
 		"jsx": "react-jsx",
 		// Enable latest features
 		"lib": ["ESNext", "DOM"],

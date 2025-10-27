@@ -12,7 +12,6 @@
 		"tailwindcss-animate": "^1.0.7"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.3.1",
 		"@eslint/js": "^9.17.0",
 		"@types/node": "^22.10.7",
 		"@types/react": "^19.0.0",
@@ -33,7 +32,6 @@
 	"private": true,
 	"scripts": {
 		"build": "bunx --bun vite build",
-		"check": "bunx biome check --write",
 		"dev": "bunx --bun vite",
 		"preview": "vite preview"
 	},
