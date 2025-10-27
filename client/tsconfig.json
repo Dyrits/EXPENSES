@@ -1,14 +1,19 @@
 {
 	"compilerOptions": {
 		"baseUrl": ".",
+		"composite": true,
+		"declaration": true,
+		"emitDeclarationOnly": true,
 		"paths": {
 			"@/*": ["./src/*"],
 			"@server/*": ["../server/*"]
-		}
+		},
+		"strict": true
 	},
 	"files": [],
 	"references": [
 		{ "path": "./tsconfig.app.json" },
-		{ "path": "./tsconfig.node.json" }
+		{ "path": "./tsconfig.node.json" },
+		{ "path": "../server/tsconfig.json" }
 	]
 }

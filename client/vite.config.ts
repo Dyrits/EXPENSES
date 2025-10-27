@@ -16,7 +16,7 @@ export default defineConfig({
 		proxy: {
 			"/": {
 				changeOrigin: true,
-				target: "http://server:3000",
+				target: "http://localhost:3000",
 			},
 		},
 	},
