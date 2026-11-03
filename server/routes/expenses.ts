@@ -13,7 +13,7 @@ const ExpenseSchema = z.object({
 	title: z.string().min(2),
 });
 
-type Expense = z.infer<typeof ExpenseSchema>;
+export type Expense = z.infer<typeof ExpenseSchema>;
 
 const ExpensePostSchema = ExpenseSchema.omit({ id: true });
 
@@ -29,7 +29,7 @@ router.get("/total", (context) => {
 
 router.get("/:id", (context) => {
 	const id = context.req.param("id");
-	const expense: Expense = expenses.find((expense) => expense.id === id);
+	const expense = expenses.find((expense) => expense.id === id);
 	if (!expense) {
 		return context.notFound();
 	}
